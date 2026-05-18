@@ -1,0 +1,16 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "C++: Debug",
+      "program": "${workspaceFolder}/out/${fileBasenameNoExtension}.dbg",
+      "args": [],
+      "stdio": ["${workspaceFolder}/in.txt", null, null],
+      "cwd": "${workspaceFolder}",
+      "preLaunchTask": "C++: Build Debug",
+      "stopOnEntry": false
+    }
+  ]
+}
