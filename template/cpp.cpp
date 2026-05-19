@@ -19,17 +19,6 @@ using pii = std::pair<i32, i32>;    using pll = std::pair<i64, i64>;
 #define fn signed
 #define val const auto
 
-// ─── Macros ──────────────────────────────────────────────────────────────────
-#define fi first
-#define se second
-#define all(x) std::begin(x), std::end(x)
-#define rall(x) std::rbegin(x), std::rend(x)
-#define sz(x) (i64)(x).size()
-#define rep(i, n) for (i64 i = 0; i < (n); ++i)
-#define repf(i, a, b) for (i64 i = (a); i < (b); ++i)
-#define repr(i, n) for (i64 i = (n) - 1; i >= 0; --i)
-#define each(x, v) for (auto &x : (v))
-
 // ─── Debug (compile with -DLOCAL to enable) ──────────────────────────────────
 #ifdef LOCAL
 template <class T> std::ostream &operator<<(std::ostream &os, vec<T> const &v) {
@@ -44,12 +33,6 @@ template <class A, class B> std::ostream &operator<<(std::ostream &os, std::pair
 #else
 #define dbg(x) ((void)0)
 #endif
-
-// ─── Constants ───────────────────────────────────────────────────────────────
-constexpr i64 INF = 4e18;
-constexpr i32 INF32 = 2e9;
-constexpr f64 EPS = 1e-9;
-constexpr i64 MOD = 1e9 + 7;
 
 // ─── Input ───────────────────────────────────────────────────────────────────
 def ini32() { i32 x; std::cin >> x; return x; }
@@ -98,31 +81,40 @@ struct _Out {
   }
 } out;
 
+// ─── Constants ───────────────────────────────────────────────────────────────
+constexpr i64 INF = 4e18;
+constexpr i32 INF32 = 2e9;
+constexpr f64 EPS = 1e-9;
+constexpr i64 MOD = 1e9 + 7;
+
 // ─── Math ────────────────────────────────────────────────────────────────────
 def pw(i64 b, i64 exp, i64 m = MOD) -> i64 {
   i64 r = 1;
   b %= m;
   for (; exp; exp >>= 1, b = b * b % m)
-    if (exp & 1)
-      r = r * b % m;
+    if (exp & 1) r = r * b % m;
   return r;
 }
 def inv_mod(i64 a, i64 m = MOD) { return pw(a, m - 2, m); }
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
-template <class T> def chmin(T &a, T b) -> bool { return a > b ? (a = b, true) : false; }
-template <class T> def chmax(T &a, T b) -> bool { return a < b ? (a = b, true) : false; }
-template <class... T> def mn(T... a) { return std::min({a...}); }
-template <class... T> def mx(T... a) { return std::max({a...}); }
-template <class T> def sqr(T x) { return x * x; }
 def yes(bool b = true) { std::cout << (b ? "YES" : "NO") << '\n'; }
 def no() { yes(false); }
+
+// ─── Macros ──────────────────────────────────────────────────────────────────
+#define fi first
+#define se second
+#define all(x) std::begin(x), std::end(x)
+#define rall(x) std::rbegin(x), std::rend(x)
+#define sz(x) (i64)(x).size()
+#define rep(i, n) for (i64 i = 0; i < (n); ++i)
+#define repf(i, a, b) for (i64 i = (a); i < (b); ++i)
+#define repr(i, n) for (i64 i = (n) - 1; i >= 0; --i)
+#define each(x, v) for (auto &x : (v))
 // clang-format on
 
 // ─── Solution ────────────────────────────────────────────────────────────────
 def solution() {
-
-  out(instr());
 }
 
 int main() {
@@ -130,6 +122,8 @@ int main() {
   std::cin.tie(nullptr);
 
   let t = ini64();
-  while (t--)
+  while (t--) {
+    // let ans =
     solution();
+  }
 }
