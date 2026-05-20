@@ -2,7 +2,7 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")" && pwd)"
-TEMPLATE_DIR="$ROOT/template"
+TEMPLATE_DIR="$ROOT/snippets"
 SRC_DIR="$ROOT/src"
 OUT_DIR="$ROOT/out"
 IN_FILE="$ROOT/in.txt"
