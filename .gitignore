@@ -29,7 +29,10 @@ bin/
 .DS_Store
 
 ### Misc
-**.out
-**.exe
-**.dbg
-**.jar
+*.out
+*.exe
+*.dbg
+*.o
+*.jar
+*.tmp
+*.swp

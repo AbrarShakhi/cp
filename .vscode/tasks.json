@@ -4,12 +4,11 @@
     {
       "label": "C++: Build Debug",
       "type": "shell",
-      "command": "mkdir -p ${workspaceFolder}/out && g++ -std=c++17 -g -DLOCAL -fsanitize=address,undefined -fno-omit-frame-pointer -o ${workspaceFolder}/out/${fileBasenameNoExtension}.dbg ${file}",
+      "command": "mkdir -p ${workspaceFolder}/out && g++ -std=c++17 -g -DLOCAL -DDEBUG -fsanitize=address,undefined -fno-omit-frame-pointer -o ${workspaceFolder}/out/${fileBasenameNoExtension}.dbg ${file}",
       "group": {
         "kind": "build",
         "isDefault": true
       },
-      "problemMatcher": "$gcc",
       "presentation": {
         "reveal": "silent",
         "panel": "shared",
