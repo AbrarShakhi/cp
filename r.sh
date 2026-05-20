@@ -9,6 +9,9 @@ IN_FILE="$ROOT/in.txt"
 
 mkdir -p "$SRC_DIR"
 mkdir -p "$OUT_DIR"
+[[ ! -e "$IN_FILE" ]] && {
+    touch "$IN_FILE"
+}
 
 # ─── C++ ─────────────────────────────────────────────────────────────────────
 _cpp_new() {
