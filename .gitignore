@@ -10,6 +10,10 @@ out/
 ### Kotlin ###
 .kotlin
 
+### Rust ###
+/target
+*.lock
+
 ### Eclipse ###
 .apt_generated
 .classpath

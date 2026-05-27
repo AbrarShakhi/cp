@@ -132,6 +132,60 @@ _kt() {
     esac
 }
 
+# ─── Rust ────────────────────────────────────────────────────────────────────
+_rs_new() {
+    local name="${1:?Usage: r rs new <name>}"
+    local file="$SRC_DIR/bin/$name.rs"
+
+    mkdir -p "$SRC_DIR/bin"
+
+    [[ -e "$file" ]] && {
+        echo "error: $file already exists"
+        exit 1
+    }
+
+    cp "$TEMPLATE_DIR/Template.rs" "$file"
+    echo "created $file"
+}
+
+_rs_run() {
+    local name="${1:?Usage: r rs run <name>}"
+    local src="$SRC_DIR/bin/$name.rs"
+
+    [[ ! -f "$src" ]] && {
+        echo "error: $src not found"
+        exit 1
+    }
+
+    echo "─── output ──────────────────────────────"
+    cargo run --release --bin "$name" 2>/dev/null < "$IN_FILE"
+}
+
+_rs_debug() {
+    local name="${1:?Usage: r rs debug <name>}"
+    local src="$SRC_DIR/bin/$name.rs"
+
+    [[ ! -f "$src" ]] && {
+        echo "error: $src not found"
+        exit 1
+    }
+
+    echo "─── output (debug) ──────────────────────"
+    cargo run --bin "$name" < "$IN_FILE"
+}
+
+_rs() {
+    local sub="${1:-}"
+    shift || true
+
+    case "$sub" in
+        new)   _rs_new   "$@" ;;
+        run)   _rs_run   "$@" ;;
+        debug) _rs_debug "$@" ;;
+        *)     echo "usage: r rs {new|run|debug} <name>"; exit 1 ;;
+    esac
+}
+
 # ─── Top-level ────────────────────────────────────────────────────────────────
 case "${1:-}" in
     cpp)
@@ -142,6 +196,10 @@ case "${1:-}" in
         shift
         _kt "$@"
         ;;
+    rs)
+        shift
+        _rs "$@"
+        ;;
     clear)
         rm -f "$OUT_DIR"/*.out \
               "$OUT_DIR"/*.dbg \
@@ -149,9 +207,10 @@ case "${1:-}" in
         echo "cleared out/"
         ;;
     *)
-        echo "usage: r {cpp|kt|clear} ..."
+        echo "usage: r {cpp|kt|rs|clear} ..."
         echo "       r cpp {new|run|debug} <name>"
         echo "       r kt  {new|run|debug} <name>"
+        echo "       r rs  {new|run|debug} <name>"
         exit 1
         ;;
 esac
