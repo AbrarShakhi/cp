@@ -15,7 +15,7 @@ mkdir -p "$OUT_DIR"
 
 # ─── C++ ─────────────────────────────────────────────────────────────────────
 _cpp_new() {
-    local name="${1:?Usage: r cpp new <name>}"
+    local name="${1:?Usage: $0 cpp new <name>}"
     local file="$SRC_DIR/$name.cpp"
 
     [[ -e "$file" ]] && {
@@ -28,7 +28,7 @@ _cpp_new() {
 }
 
 _cpp_run() {
-    local name="${1:?Usage: r cpp run <name>}"
+    local name="${1:?Usage: $0 cpp run <name>}"
     local src="$SRC_DIR/$name.cpp"
     local bin="$OUT_DIR/$name.out"
 
@@ -44,7 +44,7 @@ _cpp_run() {
 }
 
 _cpp_debug() {
-    local name="${1:?Usage: r cpp debug <name>}"
+    local name="${1:?Usage: $0 cpp db <name>}"
     local src="$SRC_DIR/$name.cpp"
     local bin="$OUT_DIR/$name.dbg"
 
@@ -69,14 +69,14 @@ _cpp() {
     case "$sub" in
         new)   _cpp_new   "$@" ;;
         run)   _cpp_run   "$@" ;;
-        debug) _cpp_debug "$@" ;;
-        *)     echo "usage: r cpp {new|run|debug} <name>"; exit 1 ;;
+        db) _cpp_debug "$@" ;;
+        *)     echo "usage: $0 cpp {new|run|debug} <name>"; exit 1 ;;
     esac
 }
 
 # ─── Kotlin ──────────────────────────────────────────────────────────────────
 _kt_new() {
-    local name="${1:?Usage: r kt new <name>}"
+    local name="${1:?Usage: $0 kt new <name>}"
     local file="$SRC_DIR/$name.kt"
 
     [[ -e "$file" ]] && {
@@ -89,7 +89,7 @@ _kt_new() {
 }
 
 _kt_run() {
-    local name="${1:?Usage: r kt run <name>}"
+    local name="${1:?Usage: $0 kt run <name>}"
     local src="$SRC_DIR/$name.kt"
     local jar="$OUT_DIR/$name.jar"
 
@@ -98,14 +98,14 @@ _kt_run() {
         exit 1
     }
 
-    kotlinc "$src" -include-runtime -d "$jar" 2>/dev/null
+    kotlinc "$src" -include-runtime -d "$jar"
 
     echo "─── output ──────────────────────────────"
     java -jar "$jar" < "$IN_FILE"
 }
 
 _kt_debug() {
-    local name="${1:?Usage: r kt debug <name>}"
+    local name="${1:?Usage: $0 kt db <name>}"
     local src="$SRC_DIR/$name.kt"
     local jar="$OUT_DIR/$name.jar"
 
@@ -127,51 +127,55 @@ _kt() {
     case "$sub" in
         new)   _kt_new   "$@" ;;
         run)   _kt_run   "$@" ;;
-        debug) _kt_debug "$@" ;;
-        *)     echo "usage: r kt {new|run|debug} <name>"; exit 1 ;;
+        db) _kt_debug "$@" ;;
+        *)     echo "usage: $0 kt {new|run|debug} <name>"; exit 1 ;;
     esac
 }
 
 # ─── Rust ────────────────────────────────────────────────────────────────────
 _rs_new() {
-    local name="${1:?Usage: r rs new <name>}"
-    local file="$SRC_DIR/bin/$name.rs"
-
-    mkdir -p "$SRC_DIR/bin"
+    local name="${1:?Usage: $0 rs new <name>}"
+    local file="$SRC_DIR/$name.cpp"
 
     [[ -e "$file" ]] && {
         echo "error: $file already exists"
         exit 1
     }
 
-    cp "$TEMPLATE_DIR/Template.rs" "$file"
+    cp "$TEMPLATE_DIR/Template.cpp" "$file"
     echo "created $file"
 }
 
 _rs_run() {
-    local name="${1:?Usage: r rs run <name>}"
-    local src="$SRC_DIR/bin/$name.rs"
+    local name="${1:?Usage: $0 rs run <name>}"
+    local src="$SRC_DIR/$name.rs"
+    local bin="$OUT_DIR/$name.out"
 
     [[ ! -f "$src" ]] && {
         echo "error: $src not found"
         exit 1
     }
 
+    rustc -o "$bin" "$src"
+
     echo "─── output ──────────────────────────────"
-    cargo run --release --bin "$name" 2>/dev/null < "$IN_FILE"
+    "$bin" < "$IN_FILE"
 }
 
 _rs_debug() {
-    local name="${1:?Usage: r rs debug <name>}"
-    local src="$SRC_DIR/bin/$name.rs"
+    local name="${1:?Usage: $0 rs run <name>}"
+    local src="$SRC_DIR/$name.rs"
+    local bin="$OUT_DIR/$name.out"
 
     [[ ! -f "$src" ]] && {
         echo "error: $src not found"
         exit 1
     }
 
+    rustc -o "$bin" "$src"
+
     echo "─── output (debug) ──────────────────────"
-    cargo run --bin "$name" < "$IN_FILE"
+    "$bin" < "$IN_FILE"
 }
 
 _rs() {
@@ -181,8 +185,8 @@ _rs() {
     case "$sub" in
         new)   _rs_new   "$@" ;;
         run)   _rs_run   "$@" ;;
-        debug) _rs_debug "$@" ;;
-        *)     echo "usage: r rs {new|run|debug} <name>"; exit 1 ;;
+        db) _rs_debug "$@" ;;
+        *)     echo "usage: $0 rs {new|run|debug} <name>"; exit 1 ;;
     esac
 }
 
@@ -207,7 +211,7 @@ case "${1:-}" in
         echo "cleared out/"
         ;;
     *)
-        echo "usage: r {cpp|kt|rs|clear} ..."
+        echo "usage: $0 {cpp|kt|rs|clear} ..."
         echo "       r cpp {new|run|debug} <name>"
         echo "       r kt  {new|run|debug} <name>"
         echo "       r rs  {new|run|debug} <name>"
