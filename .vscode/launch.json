@@ -7,7 +7,9 @@
       "name": "C++: Debug",
       "program": "${workspaceFolder}/out/${fileBasenameNoExtension}.dbg",
       "args": [],
-      "stdio": ["${workspaceFolder}/in.txt", null, null],
+      "env": {
+        "ASAN_OPTIONS": "detect_leaks=0"
+      },
       "cwd": "${workspaceFolder}",
       "preLaunchTask": "C++: Build Debug",
       "stopOnEntry": false
