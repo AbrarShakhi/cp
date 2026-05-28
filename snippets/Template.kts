@@ -32,7 +32,7 @@ private class FastWriter {
     }
 }
 
-private class FastScanner {
+private class FastReader {
     private val input = BufferedInputStream(System.`in`, 1 shl 16)
     private val buffer = ByteArray(1 shl 16)
     private var ptr = 0
@@ -99,7 +99,7 @@ private class FastScanner {
     fun stringArray(n: Int) = Array(n) { string() }
 }
 
-private val fs = FastScanner()
+private val fr = FastReader()
 private val fw = FastWriter()
 
 private fun Any.log() = fw.println(this)
@@ -114,7 +114,7 @@ private fun solution(): Any? {
 }
 
 private val start = {
-    val tc = fs.int()
+    val tc = fr.int()
     repeat(tc) { solution()?.log() }
     fw.writer.flush()
 }

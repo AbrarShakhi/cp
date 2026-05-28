@@ -5,6 +5,7 @@ ROOT="$(cd "$(dirname "$0")" && pwd)"
 TEMPLATE_DIR="$ROOT/snippets"
 SRC_DIR="$ROOT/src"
 OUT_DIR="$ROOT/out"
+RUST_OUT_DIR="$ROOT/target"
 IN_FILE="$ROOT/in.txt"
 
 mkdir -p "$SRC_DIR"
@@ -135,14 +136,14 @@ _kt() {
 # ─── Rust ────────────────────────────────────────────────────────────────────
 _rs_new() {
     local name="${1:?Usage: $0 rs new <name>}"
-    local file="$SRC_DIR/$name.cpp"
+    local file="$SRC_DIR/$name.rs"
 
     [[ -e "$file" ]] && {
         echo "error: $file already exists"
         exit 1
     }
 
-    cp "$TEMPLATE_DIR/Template.cpp" "$file"
+    cp "$TEMPLATE_DIR/Template.rs" "$file"
     echo "created $file"
 }
 
@@ -205,10 +206,9 @@ case "${1:-}" in
         _rs "$@"
         ;;
     clear)
-        rm -f "$OUT_DIR"/*.out \
-              "$OUT_DIR"/*.dbg \
-              "$OUT_DIR"/*.jar 2>/dev/null || true
-        echo "cleared out/"
+        rm -rf "$OUT_DIR" 2>/dev/null || true
+        rm -rf "$RUST_OUT_DIR" 2>/dev/null || true
+        echo "cleared"
         ;;
     *)
         echo "usage: $0 {cpp|kt|rs|clear} ..."

@@ -1,5 +1,4 @@
 #![allow(unused)]
-
 #[rustfmt::skip]
 mod fastio {
 use std::io::{self, BufWriter, Read, Write};
@@ -21,9 +20,9 @@ impl Write for FastWriter {
     fn flush(&mut self) -> io::Result<()> { self.writer.flush() }
 }
 
-pub struct FastScanner<'a> { iter: std::str::SplitAsciiWhitespace<'a> }
+pub struct FastReader<'a> { iter: std::str::SplitAsciiWhitespace<'a> }
 
-impl<'a> FastScanner<'a> {
+impl<'a> FastReader<'a> {
     pub fn new(s: &'a str) -> Self { Self { iter: s.split_ascii_whitespace() } }
     pub fn next<T: std::str::FromStr>(&mut self) -> T where T::Err: std::fmt::Debug, {
         self.iter.next().unwrap().parse().unwrap()
@@ -39,7 +38,7 @@ impl<'a> FastScanner<'a> {
     pub fn string_array(&mut self, n: usize) -> Vec<String> { (0..n).map(|_| self.string()).collect() }
 }
 }
-use fastio::{FastScanner, FastWriter};
+use fastio::{FastReader, FastWriter};
 use std::io::{self, Read};
 
 const INF: i64 = i64::MAX / 2;
@@ -47,16 +46,16 @@ const INF32: i32 = i32::MAX / 2;
 const MOD: i64 = 1_000_000_007;
 const EPS: f64 = 1e-9;
 
-fn solution(fs: &mut FastScanner, fw: &mut FastWriter) {}
+fn solution(_tcn: i32, fs: &mut FastReader, fw: &mut FastWriter) {}
 
 fn main() {
     let mut input = String::new();
     io::stdin().read_to_string(&mut input).unwrap();
-    let mut fs = FastScanner::new(&input);
+    let mut fs = FastReader::new(&input);
     let mut fw = FastWriter::new();
 
-    let t = fs.int();
-    for _ in 0..t {
-        solution(&mut fs, &mut fw);
+    let tc = fs.int();
+    for t in 0..tc {
+        solution(t, &mut fs, &mut fw);
     }
 }
