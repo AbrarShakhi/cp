@@ -46,7 +46,7 @@ const INF32: i32 = i32::MAX / 2;
 const MOD: i64 = 1_000_000_007;
 const EPS: f64 = 1e-9;
 
-fn solution(_tcn: i32, fs: &mut FastReader, fw: &mut FastWriter) {}
+fn solution(_tcn: i32, fr: &mut FastReader, fw: &mut FastWriter) {}
 
 fn main() {
     let mut input = String::new();
@@ -56,6 +56,7 @@ fn main() {
 
     let tc = fs.int();
     for t in 0..tc {
-        solution(t, &mut fs, &mut fw);
+        let ans = solution(t, &mut fs, &mut fw);
+        // fw.println(ans)
     }
 }
