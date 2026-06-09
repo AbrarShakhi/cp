@@ -27,15 +27,16 @@ impl<'a> FastReader<'a> {
     pub fn next<T: std::str::FromStr>(&mut self) -> T where T::Err: std::fmt::Debug, {
         self.iter.next().unwrap().parse().unwrap()
     }
-    pub fn int(&mut self) -> i32 { self.next() }
-    pub fn long(&mut self) -> i64 { self.next() }
-    pub fn double(&mut self) -> f64 { self.next() }
-    pub fn string(&mut self) -> String { self.next() }
+    pub fn i32(&mut self) -> i32 { self.next() }
+    pub fn i64(&mut self) -> i64 { self.next() }
+    pub fn usize(&mut self) -> i64 { self.i64() }
+    pub fn f64(&mut self) -> f64 { self.next() }
+    pub fn str(&mut self) -> String { self.next() }
     pub fn char(&mut self) -> char { self.next() }
-    pub fn int_array(&mut self, n: usize) -> Vec<i32> { (0..n).map(|_| self.int()).collect() }
-    pub fn long_array(&mut self, n: usize) -> Vec<i64> { (0..n).map(|_| self.long()).collect() }
-    pub fn double_array(&mut self, n: usize) -> Vec<f64> { (0..n).map(|_| self.double()).collect() }
-    pub fn string_array(&mut self, n: usize) -> Vec<String> { (0..n).map(|_| self.string()).collect() }
+    pub fn i32_array(&mut self, n: usize) -> Vec<i32> { (0..n).map(|_| self.i32()).collect() }
+    pub fn i64_array(&mut self, n: usize) -> Vec<i64> { (0..n).map(|_| self.i64()).collect() }
+    pub fn f64_array(&mut self, n: usize) -> Vec<f64> { (0..n).map(|_| self.f64()).collect() }
+    pub fn str_array(&mut self, n: usize) -> Vec<String> { (0..n).map(|_| self.str()).collect() }
 }
 }
 use fastio::{FastReader, FastWriter};
@@ -46,7 +47,7 @@ const INF32: i32 = i32::MAX / 2;
 const MOD: i64 = 1_000_000_007;
 const EPS: f64 = 1e-9;
 
-fn solution(_tcn: i32, fr: &mut FastReader, fw: &mut FastWriter) {}
+fn solution(_tcn: i64, fr: &mut FastReader, fw: &mut FastWriter) {}
 
 fn main() {
     let mut input = String::new();
@@ -54,9 +55,8 @@ fn main() {
     let mut fs = FastReader::new(&input);
     let mut fw = FastWriter::new();
 
-    let tc = fs.int();
+    let tc = fs.i64();
     for t in 0..tc {
         let ans = solution(t, &mut fs, &mut fw);
-        // fw.println(ans)
     }
 }
