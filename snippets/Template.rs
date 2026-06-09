@@ -57,6 +57,10 @@ fn main() {
 
     let tc = fs.i64();
     for t in 0..tc {
-        let ans = solution(t, &mut fs, &mut fw);
+        let ans = {
+            solution(t, &mut fs, &mut fw);
+            ""
+        };
+        fw.println(ans);
     }
 }
