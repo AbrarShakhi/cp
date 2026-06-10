@@ -29,7 +29,7 @@ impl<'a> FastReader<'a> {
     }
     pub fn i32(&mut self) -> i32 { self.next() }
     pub fn i64(&mut self) -> i64 { self.next() }
-    pub fn usize(&mut self) -> i64 { self.i64() }
+    pub fn usize(&mut self) -> usize { self.next() }
     pub fn f64(&mut self) -> f64 { self.next() }
     pub fn str(&mut self) -> String { self.next() }
     pub fn char(&mut self) -> char { self.next() }
@@ -47,18 +47,18 @@ const INF32: i32 = i32::MAX / 2;
 const MOD: i64 = 1_000_000_007;
 const EPS: f64 = 1e-9;
 
-fn solution(_tcn: i64, fr: &mut FastReader, fw: &mut FastWriter) {}
+fn solution(_tcn: usize, _r: &mut FastReader, _w: &mut FastWriter) {}
 
 fn main() {
     let mut input = String::new();
     io::stdin().read_to_string(&mut input).unwrap();
-    let mut fs = FastReader::new(&input);
+    let mut fr = FastReader::new(&input);
     let mut fw = FastWriter::new();
 
-    let tc = fs.i64();
-    for t in 0..tc {
+    let tc = fr.usize();
+    for t in 1..(tc + 1) {
         let ans = {
-            solution(t, &mut fs, &mut fw);
+            solution(t, &mut fr, &mut fw);
             ""
         };
         fw.println(ans);
