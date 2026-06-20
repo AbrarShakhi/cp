@@ -1,13 +1,1 @@
-{
-    "files.exclude": {
-        "**/.git": true,
-        "**/.idea": true,
-        "**/out": true,
-        "**/target": true,
-        "**/Cargo.*": true,
-        "**/.clang-format": true,
-        "**/.gitignore": true,
-        "**/**.md": true,
-        "**/**.iml": true,
-    }
-}
+{}
