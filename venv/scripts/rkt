@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Build/run the Kotlin solution. Real executable (not a function) so entr can run it.
+# Usage: rkt -c|-r|-rd <name>
+set -euo pipefail
+
+if [[ -z "${CP_ROOT:-}" ]]; then
+    echo "rkt: cp venv not active. Run: source venv/activate.sh" >&2
+    exit 1
+fi
+
+exec python3 "$CP_ROOT/venv/python/main.py" kt "$CP_ROOT" "$@"

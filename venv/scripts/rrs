@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Build/run the Rust solution. Real executable (not a function) so entr can run it.
+# Usage: rrs -c|-r|-rd <name>
+set -euo pipefail
+
+if [[ -z "${CP_ROOT:-}" ]]; then
+    echo "rrs: cp venv not active. Run: source venv/activate.sh" >&2
+    exit 1
+fi
+
+exec python3 "$CP_ROOT/venv/python/main.py" rs "$CP_ROOT" "$@"

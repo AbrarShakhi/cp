@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Build/run the C++ solution. Real executable (not a function) so entr can run it.
+# Usage: rcpp -c|-r|-rd <name>
+set -euo pipefail
+
+if [[ -z "${CP_ROOT:-}" ]]; then
+    echo "rcpp: cp venv not active. Run: source venv/activate.sh" >&2
+    exit 1
+fi
+
+exec python3 "$CP_ROOT/venv/python/main.py" cpp "$CP_ROOT" "$@"
